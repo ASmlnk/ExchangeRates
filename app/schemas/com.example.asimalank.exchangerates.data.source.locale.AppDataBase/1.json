@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "a5d963cd47960add654885c461db3b94",
+    "entities": [
+      {
+        "tableName": "currency_cache",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cur_id` INTEGER NOT NULL, `date` TEXT NOT NULL, `cur_abbreviation` TEXT NOT NULL, `cur_scale` INTEGER NOT NULL, `cur_name` TEXT NOT NULL, `cur_officialRate` REAL NOT NULL, PRIMARY KEY(`cur_id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "cur_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "curAbbreviation",
+            "columnName": "cur_abbreviation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "curScale",
+            "columnName": "cur_scale",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "curName",
+            "columnName": "cur_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "curOfficialRate",
+            "columnName": "cur_officialRate",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "cur_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a5d963cd47960add654885c461db3b94')"
+    ]
+  }
+}
