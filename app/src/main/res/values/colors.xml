@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="background_item_night">#1C1C1C</color>
+    <color name="background_night">#202020</color>
+    <color name="white">#FFFFFF</color>
     <color name="red">#CF1414</color>
+    <color name="text_item">#F6E9BF</color>
+    <color name="background_scale">#F8EECF</color>
 </resources>

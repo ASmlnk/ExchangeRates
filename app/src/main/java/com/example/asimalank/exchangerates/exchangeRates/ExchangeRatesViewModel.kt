@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.asimalank.exchangerates.data.Currency
 import com.example.asimalank.exchangerates.data.ExchangeRatesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -30,8 +31,7 @@ class ExchangeRatesViewModel @Inject constructor(
         refreshData()
     }
 
-    private fun refreshData() {
-        updateStateProgressBar()
+    fun refreshData() {
         viewModelScope.launch {
             try {
                 val response = repository.fetchCurrencyNetwork()
@@ -39,13 +39,10 @@ class ExchangeRatesViewModel @Inject constructor(
                     val currency = response.body() ?: emptyList()
                     repository.insertAllCache(currency)
                     updateStateCurrency(currency)
-                    if (currency.isEmpty()) updateStateException()
                 }
             } catch (e: Exception) {
-
                 val currency = repository.fetchCurrencyLocale()
                 updateStateCurrency(currency)
-                if (currency.isEmpty()) updateStateException()
             }
         }
     }
@@ -58,21 +55,14 @@ class ExchangeRatesViewModel @Inject constructor(
                 progressBar = false
             )
         }
+        if (currency.isEmpty()) updateStateException(true) else updateStateException(false)
     }
 
-    private fun updateStateException() {
+    private fun updateStateException(isException: Boolean) {
         _uiState.update { oldState ->
             oldState.copy(
-                exception = true,
+                exception = isException,
                 progressBar = false
-            )
-        }
-    }
-
-    private fun updateStateProgressBar() {
-        _uiState.update { oldState ->
-            oldState.copy(
-                progressBar = true
             )
         }
     }
@@ -89,5 +79,6 @@ class ExchangeRatesViewModel @Inject constructor(
 data class ExchangeRatesUiState(
     val listCurrency: List<Currency> = listOf(),
     val progressBar: Boolean = true,
-    val exception: Boolean = false
+    val exception: Boolean = false,
+    val refresh: Boolean = false
 )

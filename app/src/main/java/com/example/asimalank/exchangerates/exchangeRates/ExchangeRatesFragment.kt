@@ -15,14 +15,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.asimalank.exchangerates.adapter.CurrencyAdapter
 import com.example.asimalank.exchangerates.databinding.FragmentExchangeRatesBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ExchangeRatesFragment: Fragment() {
+class ExchangeRatesFragment : Fragment() {
 
     private val viewModel: ExchangeRatesViewModel by viewModels()
-    @Inject lateinit var adapter: CurrencyAdapter
+
+    @Inject
+    lateinit var adapter: CurrencyAdapter
 
     private var _binding: FragmentExchangeRatesBinding? = null
     private val binding
@@ -37,6 +40,12 @@ class ExchangeRatesFragment: Fragment() {
         binding.apply {
             listExchangeRates.layoutManager = LinearLayoutManager(context)
             listExchangeRates.adapter = adapter
+            swipeRefreshLayout.setOnRefreshListener {
+                viewModel.refreshData()
+                swipeRefreshLayout.postDelayed({
+                    swipeRefreshLayout.isRefreshing = false
+                }, 500)
+            }
         }
         return binding.root
     }
@@ -49,6 +58,7 @@ class ExchangeRatesFragment: Fragment() {
                 viewModel.uiState.collect { state ->
                     binding.apply {
                         progressBar.isGone = !state.progressBar
+                        textError.isGone = !state.exception
                     }
                     adapter.submitList(state.listCurrency)
                 }
