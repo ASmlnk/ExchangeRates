@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.asimalank.exchangerates.R
 import com.example.asimalank.exchangerates.data.Currency
 import com.example.asimalank.exchangerates.databinding.ItemCurrencyBinding
 import javax.inject.Inject
@@ -33,7 +34,7 @@ class CurrencyAdapter @Inject constructor(): ListAdapter<Currency, CurrencyAdapt
                 date.text = item.date
                 curScale.text = item.curScale.toString()
                 curAbbreviation.text = item.curAbbreviation
-                curOfficialRate.text = item.curOfficialRate.toString()
+                curOfficialRate.text = itemView.context.getString(R.string.cur_officialRate, item.curOfficialRate.toString())
             }
         }
     }
