@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.asimalank.exchangerates.R
-import com.example.asimalank.exchangerates.domain.Currency
 import com.example.asimalank.exchangerates.databinding.ItemCurrencyBinding
 import javax.inject.Inject
 

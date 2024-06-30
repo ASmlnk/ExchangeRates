@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.asimalank.exchangerates.R
 import com.example.asimalank.exchangerates.databinding.FragmentExchangeRatesBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -37,7 +38,6 @@ class ExchangeRatesFragment : Fragment() {
         binding.apply {
             listExchangeRates.adapter = adapter
             swipeRefreshLayout.setOnRefreshListener {
-                // viewModel.refreshData()
                 viewModel.fetchCurrency()
                 swipeRefreshLayout.postDelayed({
                     swipeRefreshLayout.isRefreshing = false
@@ -55,29 +55,25 @@ class ExchangeRatesFragment : Fragment() {
                 viewModel.uiState.collect { state ->
                     binding.apply {
                         textError.isGone = !(state.listCurrency.isEmpty() && state.exceptionText)
-
                     }
-                    if (state.exceptionToast) Toast.makeText(
-                        requireContext(),
-                        "Ошибка сети",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                    adapter.submitList(state.listCurrency)
+                    if (state.exceptionText) toast(R.string.error_toast)
+                    adapter.submitList(state.listCurrency.sortedBy { it.curName })
+                    viewModel.res(false)
                 }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.currency.collect { state ->
-
-                }
-            }
         }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun toast(text: Int) {
+        Toast.makeText(
+            requireContext(),
+            requireContext().getString(text),
+            Toast.LENGTH_LONG
+        ).show()
     }
 }

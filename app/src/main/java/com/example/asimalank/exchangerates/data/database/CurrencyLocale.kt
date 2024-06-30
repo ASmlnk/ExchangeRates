@@ -3,7 +3,7 @@ package com.example.asimalank.exchangerates.data.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.asimalank.exchangerates.domain.Currency
+import com.example.asimalank.exchangerates.presentation.Currency
 
 @Entity(tableName = "currency_cache")
 data class CurrencyLocale(

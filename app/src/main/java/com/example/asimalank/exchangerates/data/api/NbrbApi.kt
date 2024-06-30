@@ -3,13 +3,17 @@ package com.example.asimalank.exchangerates.data.api
 import retrofit2.Response
 
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface NbrbApi {
     @GET(
-        "exrates/rates?ondate=2023-01-10&periodicity=0" +
+        "exrates/rates" /*+
                 "&format=json" +
                 "&nojsoncallback=0" +
-                "&extras=url_s"
+                "&extras=url_s"*/
     )
-    suspend fun fetchCurrency(): Response<List<CurrencyNetwork>>
+    suspend fun fetchCurrency(
+        @Query("ondate") onDate: String,
+        @Query("periodicity") periodicity: String
+    ): Response<List<CurrencyNetwork>>
 }

@@ -17,11 +17,14 @@ import javax.inject.Singleton
 class ExchangeRatesRepositoryImpl @Inject constructor(
     private val nbrbApi: NbrbApi,
     private val currencyLocaleDao: CurrencyLocaleDao
-): ExchangeRatesRepository {
+) : ExchangeRatesRepository {
 
     override val currency: Flow<List<CurrencyLocale>> = currencyLocaleDao.getAll()
-    override suspend fun fetchCurrency() = nbrbApi.fetchCurrency()
-    override suspend fun insertAllCache(data: List<CurrencyLocale>) = currencyLocaleDao.insertAll(data)
+    override suspend fun fetchCurrency(onDate: String, periodicity: String) =
+        nbrbApi.fetchCurrency(onDate, periodicity)
+
+    override suspend fun insertAllCache(data: List<CurrencyLocale>) =
+        currencyLocaleDao.insertAll(data)
 
 }
 

@@ -1,4 +1,4 @@
-package com.example.asimalank.exchangerates.domain
+package com.example.asimalank.exchangerates.presentation
 
 data class Currency(
     val id: Int,
