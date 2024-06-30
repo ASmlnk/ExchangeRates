@@ -1,15 +1,17 @@
-package com.example.asimalank.exchangerates.adapter
+package com.example.asimalank.exchangerates.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.asimalank.exchangerates.R
-import com.example.asimalank.exchangerates.data.Currency
+import com.example.asimalank.exchangerates.domain.Currency
 import com.example.asimalank.exchangerates.databinding.ItemCurrencyBinding
 import javax.inject.Inject
 
-class CurrencyAdapter @Inject constructor(): ListAdapter<Currency, CurrencyAdapter.CurrencyViewHolder>(CurrencyItemCallback()) {
+class CurrencyAdapter @Inject constructor(): ListAdapter<Currency, CurrencyAdapter.CurrencyViewHolder>(
+    CurrencyItemCallback()
+) {
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
         val item = getItem(position)

@@ -1,7 +1,7 @@
-package com.example.asimalank.exchangerates.adapter
+package com.example.asimalank.exchangerates.presentation
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.asimalank.exchangerates.data.Currency
+import com.example.asimalank.exchangerates.domain.Currency
 
 class CurrencyItemCallback : DiffUtil.ItemCallback<Currency>() {
     override fun areContentsTheSame(oldItem: Currency, newItem: Currency): Boolean {

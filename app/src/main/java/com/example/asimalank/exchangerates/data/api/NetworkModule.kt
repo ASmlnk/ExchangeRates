@@ -1,4 +1,4 @@
-package com.example.asimalank.exchangerates.data.source.network
+package com.example.asimalank.exchangerates.data.api
 
 import dagger.Module
 import dagger.Provides

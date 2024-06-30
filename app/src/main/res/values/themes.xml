@@ -1,20 +1,57 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.ExchangeRates" parent="Theme.Material3.DayNight.NoActionBar">
-
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@color/background_night</item>
+        <item name="android:navigationBarColor">@color/background_scale</item>
     </style>
 
     <style name="Theme.ExchangeRates" parent="Base.Theme.ExchangeRates" />
 
     <style name="BaseTextViewStyle">
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:textColor">#000000</item>
-    <item name="android:textSize">16sp</item>
-    <item name="android:fontFamily">@font/ru_hero</item>
-    <item name="android:padding">4dp</item>
-</style>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_item</item> <!-- Оранжевый цвет текста -->
+        <item name="android:textSize">16sp</item> <!-- Размер текста -->
+        <item name="android:fontFamily">@font/ru_hero</item> <!-- Шрифт -->
+        <item name="android:padding">0dp</item> <!-- Внутренние отступы -->
+    </style>
+
+    <style name="TextNameCur" parent="BaseTextViewStyle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextError" parent="BaseTextViewStyle">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="TextCurScale" parent="BaseTextViewStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextItemCurName" parent="BaseTextViewStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BackgroundFragment">
+        <item name="android:background">@color/background_fragment</item>
+    </style>
+
+    <style name="BackgroundRecycler">
+        <item name="android:background">@drawable/background_recycler_night</item>
+    </style>
+
+    <style name="BackgroundCurrency">
+        <item name="android:background">@drawable/currency_background_night</item>
+    </style>
+
+    <style name="BackgroundLayoutCurScale">
+        <item name="android:background">@drawable/currency_scale_background_night</item>
+    </style>
 
 </resources>

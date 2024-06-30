@@ -1,17 +1,57 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.ExchangeRates" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimaryVariant">@color/red</item>
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:windowBackground">@color/background_night</item>
+        <item name="android:navigationBarColor">@color/background_scale</item>
     </style>
 
     <style name="BaseTextViewStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_item</item> <!-- Оранжевый цвет текста -->
-        <item name="android:textSize">16sp</item> <!-- Размер текста -->
+        <item name="android:textSize">14sp</item> <!-- Размер текста -->
         <item name="android:fontFamily">@font/ru_hero</item> <!-- Шрифт -->
         <item name="android:padding">0dp</item> <!-- Внутренние отступы -->
     </style>
+
+    <style name="TextNameCur" parent="BaseTextViewStyle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextError" parent="BaseTextViewStyle">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="TextCurScale" parent="BaseTextViewStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextItemCurName" parent="BaseTextViewStyle">
+        <item name="android:textColor">@color/background_item_cur_name</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="BackgroundFragment">
+        <item name="android:background">@color/background_fragment</item>
+    </style>
+
+    <style name="BackgroundRecycler">
+        <item name="android:background">@drawable/background_recycler_night</item>
+    </style>
+
+    <style name="BackgroundCurrency">
+        <item name="android:background">@drawable/currency_background_night</item>
+    </style>
+
+    <style name="BackgroundLayoutCurScale">
+        <item name="android:background">@drawable/currency_scale_background_night</item>
+    </style>
+
+
 </resources>

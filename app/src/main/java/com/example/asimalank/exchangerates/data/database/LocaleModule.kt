@@ -1,4 +1,4 @@
-package com.example.asimalank.exchangerates.data.source.locale
+package com.example.asimalank.exchangerates.data.database
 
 import android.content.Context
 import androidx.room.Room

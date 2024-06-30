@@ -1,6 +1,5 @@
-package com.example.asimalank.exchangerates.data.source.network
+package com.example.asimalank.exchangerates.data.api
 
-import com.example.asimalank.exchangerates.data.Currency
 import retrofit2.Response
 
 import retrofit2.http.GET
@@ -12,5 +11,5 @@ interface NbrbApi {
                 "&nojsoncallback=0" +
                 "&extras=url_s"
     )
-    suspend fun fetchCurrency(): Response<List<Currency>>
+    suspend fun fetchCurrency(): Response<List<CurrencyNetwork>>
 }
