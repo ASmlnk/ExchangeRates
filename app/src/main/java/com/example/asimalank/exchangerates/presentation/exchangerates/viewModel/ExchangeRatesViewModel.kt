@@ -3,7 +3,7 @@ package com.example.asimalank.exchangerates.presentation.exchangerates.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.asimalank.exchangerates.domain.interactor.ExchangeRatesInteractor
-import com.example.asimalank.exchangerates.presentation.exchangerates.model.CurrencyModel
+import com.example.asimalank.exchangerates.presentation.exchangerates.model.ExchangeRatesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,19 +23,17 @@ class ExchangeRatesViewModel @Inject constructor(
         get() = _uiState.asStateFlow()
 
     init {
-        fetchCurrency()
-
         viewModelScope.launch {
-            exchangeRatesInteractor.exchangeRatesFromModelStream()
+            exchangeRatesInteractor.fetchCurrency()
                 .collect { exchangeRatesFromModel ->
-                _uiState.update { oldState ->
-                    oldState.copy(
-                        listCurrency = exchangeRatesFromModel.currencys,
-                        isErrorViewText = exchangeRatesFromModel.isErrorViewText,
-                        isErrorViewToast = exchangeRatesFromModel.isErrorViewToast
-                    )
+                    _uiState.update { oldState ->
+                        oldState.copy(
+                            listCurrency = exchangeRatesFromModel.currencys,
+                            isErrorViewText = exchangeRatesFromModel.isErrorViewText,
+                            isErrorViewToast = exchangeRatesFromModel.isErrorViewToast
+                        )
+                    }
                 }
-            }
         }
     }
 
@@ -45,9 +43,3 @@ class ExchangeRatesViewModel @Inject constructor(
         }
     }
 }
-
-data class ExchangeRatesUiState(
-    val listCurrency: List<CurrencyModel> = listOf(),
-    val isErrorViewText: Boolean = false,
-    val isErrorViewToast: Boolean = false
-)

@@ -5,6 +5,5 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
 interface ExchangeRatesInteractor {
-    suspend fun fetchCurrency()
-    fun exchangeRatesFromModelStream(): StateFlow<ExchangeRatesFromModel>
+    suspend fun fetchCurrency(): StateFlow<ExchangeRatesFromModel>
 }

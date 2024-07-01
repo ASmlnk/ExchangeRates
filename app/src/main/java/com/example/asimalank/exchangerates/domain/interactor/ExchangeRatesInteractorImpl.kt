@@ -11,6 +11,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -28,7 +29,7 @@ class ExchangeRatesInteractorImpl @Inject constructor(
 
     private val currencyEntity: Flow<List<CurrencyEntity>> = exchangeRatesRepository.currencyEntityStream()
 
-    override fun exchangeRatesFromModelStream() =
+    private val exchangeRatesFromModelStream =
         combine(
             _isCurrencyErrorViewText,
             _isCurrencyErrorViewToast,
@@ -47,7 +48,7 @@ class ExchangeRatesInteractorImpl @Inject constructor(
             initialValue = ExchangeRatesFromModel()
         )
 
-    override suspend fun fetchCurrency() {
+    override suspend fun fetchCurrency(): StateFlow<ExchangeRatesFromModel> {
 
         if (networkHelper.isNetworkAvailable()) {
             fetchCurrencyNetwork("2023-01-25", "0")
@@ -55,6 +56,7 @@ class ExchangeRatesInteractorImpl @Inject constructor(
         } else {
             updateCurrencyError(true)
         }
+        return exchangeRatesFromModelStream
     }
 
     private suspend fun fetchCurrencyNetwork(onDate: String, periodicity: String) {
