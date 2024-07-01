@@ -1,4 +1,4 @@
-package com.example.asimalank.exchangerates.presentation
+package com.example.asimalank.exchangerates.presentation.exchangerates.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.asimalank.exchangerates.R
 import com.example.asimalank.exchangerates.databinding.FragmentExchangeRatesBinding
+import com.example.asimalank.exchangerates.presentation.exchangerates.adapter.CurrencyAdapter
+import com.example.asimalank.exchangerates.presentation.exchangerates.viewModel.ExchangeRatesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -54,9 +56,9 @@ class ExchangeRatesFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
                     binding.apply {
-                        textError.isGone = !(state.listCurrency.isEmpty() && state.exceptionText)
+                        textError.isGone = !(state.listCurrency.isEmpty() && state.isErrorViewText)
                     }
-                    if (state.exceptionToast) toast(R.string.error_toast)
+                    if (state.isErrorViewToast) toast(R.string.error_toast)
                     adapter.submitList(state.listCurrency.sortedBy { it.curName })
                 }
             }

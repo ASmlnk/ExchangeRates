@@ -1,4 +1,4 @@
-package com.example.asimalank.exchangerates.presentation
+package com.example.asimalank.exchangerates.presentation.main
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

@@ -6,5 +6,5 @@
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.example.asimalank.exchangerates.presentation.ExchangeRatesFragment"
-    tools:context=".presentation.MainActivity"/>
+    android:name="com.example.asimalank.exchangerates.presentation.exchangerates.fragment.ExchangeRatesFragment"
+    tools:context=".presentation.main.MainActivity"/>

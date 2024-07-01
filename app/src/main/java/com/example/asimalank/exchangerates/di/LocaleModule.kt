@@ -1,7 +1,9 @@
-package com.example.asimalank.exchangerates.data.database
+package com.example.asimalank.exchangerates.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.asimalank.exchangerates.data.database.AppDataBase
+import com.example.asimalank.exchangerates.data.database.CurrencyLocaleDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

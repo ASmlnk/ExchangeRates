@@ -1,11 +1,11 @@
-package com.example.asimalank.exchangerates.domain
+package com.example.asimalank.exchangerates.domain.usecases
 
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 
-class CurrencyDateFormat @Inject constructor() {
+class CurrencyDateFormatUseCase @Inject constructor() {
     fun convertDate(networkDate: String): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         val date = inputFormat.parse(networkDate)

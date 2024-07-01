@@ -1,6 +1,6 @@
-package com.example.asimalank.exchangerates.presentation
+package com.example.asimalank.exchangerates.presentation.exchangerates.model
 
-data class Currency(
+data class CurrencyModel(
     val id: Int,
     val date: String,
     val curAbbreviation: String,

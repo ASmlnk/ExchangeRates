@@ -1,4 +1,4 @@
-package com.example.asimalank.exchangerates.domain
+package com.example.asimalank.exchangerates.domain.usecases
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -6,7 +6,7 @@ import android.net.NetworkCapabilities
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class NetworkHelper @Inject constructor (@ApplicationContext val context: Context) {
+class NetworkAvailableUseCase @Inject constructor (@ApplicationContext val context: Context) {
     fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

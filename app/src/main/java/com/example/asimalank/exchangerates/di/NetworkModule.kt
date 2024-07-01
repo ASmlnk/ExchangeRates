@@ -1,5 +1,6 @@
-package com.example.asimalank.exchangerates.data.api
+package com.example.asimalank.exchangerates.di
 
+import com.example.asimalank.exchangerates.data.api.NbrbApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

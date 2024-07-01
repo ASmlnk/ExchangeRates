@@ -15,5 +15,5 @@ interface NbrbApi {
     suspend fun fetchCurrency(
         @Query("ondate") onDate: String,
         @Query("periodicity") periodicity: String
-    ): Response<List<CurrencyNetwork>>
+    ): Response<List<CurrencyDto>>
 }

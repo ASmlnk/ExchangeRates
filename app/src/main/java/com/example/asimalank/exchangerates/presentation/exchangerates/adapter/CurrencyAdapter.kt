@@ -1,4 +1,4 @@
-package com.example.asimalank.exchangerates.presentation
+package com.example.asimalank.exchangerates.presentation.exchangerates.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.asimalank.exchangerates.R
 import com.example.asimalank.exchangerates.databinding.ItemCurrencyBinding
+import com.example.asimalank.exchangerates.presentation.exchangerates.model.CurrencyModel
 import javax.inject.Inject
 
-class CurrencyAdapter @Inject constructor(): ListAdapter<Currency, CurrencyAdapter.CurrencyViewHolder>(
+class CurrencyAdapter @Inject constructor(): ListAdapter<CurrencyModel, CurrencyAdapter.CurrencyViewHolder>(
     CurrencyItemCallback()
 ) {
 
@@ -29,7 +30,7 @@ class CurrencyAdapter @Inject constructor(): ListAdapter<Currency, CurrencyAdapt
             }
         }
 
-        fun bind (item: Currency) {
+        fun bind (item: CurrencyModel) {
             binding.apply {
                 curName.text = item.curName
                 date.text = item.date

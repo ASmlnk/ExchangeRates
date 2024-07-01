@@ -3,10 +3,10 @@ package com.example.asimalank.exchangerates.data.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.asimalank.exchangerates.presentation.Currency
+import com.example.asimalank.exchangerates.presentation.exchangerates.model.CurrencyModel
 
 @Entity(tableName = "currency_cache")
-data class CurrencyLocale(
+data class CurrencyEntity(
     @PrimaryKey
     @ColumnInfo(name = "cur_id") val id: Int,
     @ColumnInfo(name = "date") val date: String,
@@ -15,8 +15,8 @@ data class CurrencyLocale(
     @ColumnInfo(name = "cur_name") val curName: String,
     @ColumnInfo(name = "cur_officialRate") val curOfficialRate: Double
 ) {
-    fun toCurrency(): Currency {
-        return Currency(
+    fun toCurrency(): CurrencyModel {
+        return CurrencyModel(
             id = this.id,
             date = this.date,
             curAbbreviation = this.curAbbreviation,

@@ -1,11 +1,11 @@
 package com.example.asimalank.exchangerates.data.api
 
-import com.example.asimalank.exchangerates.data.database.CurrencyLocale
+import com.example.asimalank.exchangerates.data.database.CurrencyEntity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CurrencyNetwork(
+data class CurrencyDto(
     @Json(name = "Cur_ID") val id: Int,
     @Json(name = "Date") val date: String,
     @Json(name = "Cur_Abbreviation") val curAbbreviation: String,
@@ -13,8 +13,8 @@ data class CurrencyNetwork(
     @Json(name = "Cur_Name") val curName: String,
     @Json(name = "Cur_OfficialRate") val curOfficialRate: Double
 ) {
-    fun toCurrencyLocale(): CurrencyLocale {
-        return CurrencyLocale(
+    fun toCurrencyEntity(): CurrencyEntity {
+        return CurrencyEntity(
             id = this.id,
             date = this.date,
             curAbbreviation = this.curAbbreviation,

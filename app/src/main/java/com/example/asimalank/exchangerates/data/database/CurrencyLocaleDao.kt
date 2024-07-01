@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.Flow
 interface CurrencyLocaleDao {
 
     @Query("SELECT * FROM currency_cache")
-    fun getAll(): Flow<List<CurrencyLocale>>
+    fun getAll(): Flow<List<CurrencyEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(data: List<CurrencyLocale>)
+    suspend fun insertAll(data: List<CurrencyEntity>)
 }

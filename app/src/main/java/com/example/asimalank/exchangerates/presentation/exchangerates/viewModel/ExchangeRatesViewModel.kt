@@ -1,8 +1,9 @@
-package com.example.asimalank.exchangerates.presentation
+package com.example.asimalank.exchangerates.presentation.exchangerates.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.asimalank.exchangerates.domain.GetCurrencyListUseCase
+import com.example.asimalank.exchangerates.domain.interactor.ExchangeRatesInteractor
+import com.example.asimalank.exchangerates.presentation.exchangerates.model.CurrencyModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExchangeRatesViewModel @Inject constructor(
-    private val getCurrencyListUseCase: GetCurrencyListUseCase
+    private val exchangeRatesInteractor: ExchangeRatesInteractor
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<ExchangeRatesUiState> =
@@ -25,12 +26,13 @@ class ExchangeRatesViewModel @Inject constructor(
         fetchCurrency()
 
         viewModelScope.launch {
-            getCurrencyListUseCase.currencyUseCase.collect { currencyUseCase ->
+            exchangeRatesInteractor.exchangeRatesFromModelStream()
+                .collect { exchangeRatesFromModel ->
                 _uiState.update { oldState ->
                     oldState.copy(
-                        listCurrency = currencyUseCase.currencys,
-                        exceptionText = currencyUseCase.isErrorText,
-                        exceptionToast = currencyUseCase.isErrorToast
+                        listCurrency = exchangeRatesFromModel.currencys,
+                        isErrorViewText = exchangeRatesFromModel.isErrorViewText,
+                        isErrorViewToast = exchangeRatesFromModel.isErrorViewToast
                     )
                 }
             }
@@ -39,13 +41,13 @@ class ExchangeRatesViewModel @Inject constructor(
 
     fun fetchCurrency() {
         viewModelScope.launch {
-            getCurrencyListUseCase.fetchCurrency()
+            exchangeRatesInteractor.fetchCurrency()
         }
     }
 }
 
 data class ExchangeRatesUiState(
-    val listCurrency: List<Currency> = listOf(),
-    val exceptionText: Boolean = false,
-    val exceptionToast: Boolean = false
+    val listCurrency: List<CurrencyModel> = listOf(),
+    val isErrorViewText: Boolean = false,
+    val isErrorViewToast: Boolean = false
 )
