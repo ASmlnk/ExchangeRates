@@ -56,13 +56,12 @@ class ExchangeRatesFragment : Fragment() {
                     binding.apply {
                         textError.isGone = !(state.listCurrency.isEmpty() && state.exceptionText)
                     }
-                    if (state.exceptionText) toast(R.string.error_toast)
+                    if (state.exceptionToast) toast(R.string.error_toast)
                     adapter.submitList(state.listCurrency.sortedBy { it.curName })
-                    viewModel.res(false)
                 }
             }
         }
-        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -73,7 +72,7 @@ class ExchangeRatesFragment : Fragment() {
         Toast.makeText(
             requireContext(),
             requireContext().getString(text),
-            Toast.LENGTH_LONG
+            Toast.LENGTH_SHORT
         ).show()
     }
 }

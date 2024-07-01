@@ -1,43 +1,42 @@
 package com.example.asimalank.exchangerates.domain
 
+import com.example.asimalank.exchangerates.data.database.CurrencyLocale
 import com.example.asimalank.exchangerates.data.repository.ExchangeRatesRepository
-import com.example.asimalank.exchangerates.presentation.Currency
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 class GetCurrencyListUseCaseImpl @Inject constructor(
     private val networkHelper: NetworkHelper,
-    private val exchangeRatesRepository: ExchangeRatesRepository
+    private val exchangeRatesRepository: ExchangeRatesRepository,
+    private val currencyDateFormat: CurrencyDateFormat
 ) : GetCurrencyListUseCase {
 
-    private val _isCurrencyError: MutableStateFlow<Boolean> =
+    private val _isCurrencyErrorText: MutableStateFlow<Boolean> =
         MutableStateFlow(false)
-    override val isCurrencyError: StateFlow<Boolean>
-        get() = _isCurrencyError.asStateFlow()
+    private val _isCurrencyErrorToast: MutableStateFlow<Boolean> =
+        MutableStateFlow(false)
 
-    override val currencys: StateFlow<List<Currency>> = exchangeRatesRepository.currency
-        .map { currencyLocale -> currencyLocale.map { it.toCurrency() } }
-        .stateIn(
-            scope = CoroutineScope(Dispatchers.IO),
-            started = SharingStarted.Lazily,
-            initialValue = emptyList()
-        )
+    private val currencys: Flow<List<CurrencyLocale>> = exchangeRatesRepository.currency
 
     override val currencyUseCase =
-        combine(_isCurrencyError, exchangeRatesRepository.currency) { isError, currencys ->
+        combine(
+            _isCurrencyErrorText,
+            _isCurrencyErrorToast,
+            currencys
+        ) { isErrorText, isErrorToast, currencys ->
             CurrencyUseCase().copy(
-                currencys = currencys.map { it.toCurrency() },
-                isError = isError
+                currencys = currencys
+                    .map { it.toCurrency() }
+                    .map { it.copy(date = currencyDateFormat.convertDate(it.date)) },
+                isErrorText = isErrorText,
+                isErrorToast = isErrorToast
             )
         }.stateIn(
             scope = CoroutineScope(Dispatchers.IO),
@@ -52,13 +51,7 @@ class GetCurrencyListUseCaseImpl @Inject constructor(
             updateCurrencyError(false)
         } else {
             updateCurrencyError(true)
-
         }
-        /*_isCurrencyError.update { oldCurrencyError ->
-            oldCurrencyError.copy(
-                toast = false,
-            )
-        }*/
     }
 
     private suspend fun fetchCurrencyNetwork(onDate: String, periodicity: String) {
@@ -74,7 +67,12 @@ class GetCurrencyListUseCaseImpl @Inject constructor(
         }
     }
 
-    private fun updateCurrencyError(isError: Boolean) {
-        _isCurrencyError.value = isError
+    private suspend fun updateCurrencyError(isError: Boolean) {
+        _isCurrencyErrorText.value = isError
+        _isCurrencyErrorToast.value = isError
+        if (isError) {
+            delay(200)
+            _isCurrencyErrorToast.value = false
+        }
     }
 }

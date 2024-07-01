@@ -15,8 +15,9 @@ class CurrencyUseCaseModule {
     @ViewModelScoped
     fun provideCurrencyUseCaseModule(
         networkHelper: NetworkHelper,
-        exchangeRatesRepository: ExchangeRatesRepository
+        exchangeRatesRepository: ExchangeRatesRepository,
+        currencyDateFormat: CurrencyDateFormat
     ): GetCurrencyListUseCase {
-        return GetCurrencyListUseCaseImpl(networkHelper, exchangeRatesRepository)
+        return GetCurrencyListUseCaseImpl(networkHelper, exchangeRatesRepository, currencyDateFormat)
     }
 }

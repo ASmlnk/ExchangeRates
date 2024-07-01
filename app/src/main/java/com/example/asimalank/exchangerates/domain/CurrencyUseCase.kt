@@ -4,5 +4,6 @@ import com.example.asimalank.exchangerates.presentation.Currency
 
 data class CurrencyUseCase(
     val currencys: List<Currency> = emptyList(),
-    val isError: Boolean = false
+    val isErrorText: Boolean = false,
+    val isErrorToast: Boolean = false
 )
