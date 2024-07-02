@@ -9,5 +9,6 @@
     <color name="background_scale">#F8F0D6</color>
     <color name="background_fragment">#2B2B29</color>
     <color name="background_item_cur_name">#FFCDA7</color>
+    <color name="background_recycler">#1C1C1C</color>
 
 </resources>

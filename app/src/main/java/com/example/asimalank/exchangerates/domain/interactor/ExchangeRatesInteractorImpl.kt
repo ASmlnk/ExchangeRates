@@ -4,6 +4,7 @@ import com.example.asimalank.exchangerates.data.database.CurrencyEntity
 import com.example.asimalank.exchangerates.data.repository.ExchangeRatesRepository
 import com.example.asimalank.exchangerates.domain.usecases.CurrencyDateFormatUseCase
 import com.example.asimalank.exchangerates.domain.model.ExchangeRatesFromModel
+import com.example.asimalank.exchangerates.domain.usecases.DateRequestApiUseCase
 import com.example.asimalank.exchangerates.domain.usecases.NetworkAvailableUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,12 +15,14 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import java.time.LocalDate
 import javax.inject.Inject
 
 class ExchangeRatesInteractorImpl @Inject constructor(
     private val networkHelper: NetworkAvailableUseCase,
     private val exchangeRatesRepository: ExchangeRatesRepository,
-    private val currencyDateFormatUseCase: CurrencyDateFormatUseCase
+    private val currencyDateFormatUseCase: CurrencyDateFormatUseCase,
+    private val dateRequestApiUseCase: DateRequestApiUseCase
 ) : ExchangeRatesInteractor {
 
     private val _isCurrencyErrorViewText: MutableStateFlow<Boolean> =
@@ -27,7 +30,8 @@ class ExchangeRatesInteractorImpl @Inject constructor(
     private val _isCurrencyErrorViewToast: MutableStateFlow<Boolean> =
         MutableStateFlow(false)
 
-    private val currencyEntity: Flow<List<CurrencyEntity>> = exchangeRatesRepository.currencyEntityStream()
+    private val currencyEntity: Flow<List<CurrencyEntity>> =
+        exchangeRatesRepository.currencyEntityStream()
 
     private val exchangeRatesFromModelStream =
         combine(
@@ -38,7 +42,13 @@ class ExchangeRatesInteractorImpl @Inject constructor(
             ExchangeRatesFromModel().copy(
                 currencys = currencyEntity
                     .map { it.toCurrency() }
-                    .map { currency -> currency.copy(date = currencyDateFormatUseCase.convertDate(currency.date)) },
+                    .map { currency ->
+                        currency.copy(
+                            date = currencyDateFormatUseCase.convertDate(
+                                currency.date
+                            )
+                        )
+                    },
                 isErrorViewText = isErrorViewText,
                 isErrorViewToast = isErrorViewToast
             )
@@ -48,10 +58,10 @@ class ExchangeRatesInteractorImpl @Inject constructor(
             initialValue = ExchangeRatesFromModel()
         )
 
-    override suspend fun fetchCurrency(): StateFlow<ExchangeRatesFromModel> {
-
+    override suspend fun fetchCurrency(currentDate: LocalDate): StateFlow<ExchangeRatesFromModel> {
+        val dateRequest = dateRequestApiUseCase.localDateToDateRequestApi(currentDate)
         if (networkHelper.isNetworkAvailable()) {
-            fetchCurrencyNetwork("2023-01-25", "0")
+            fetchCurrencyNetwork(dateRequest, "0")
             updateCurrencyError(false)
         } else {
             updateCurrencyError(true)

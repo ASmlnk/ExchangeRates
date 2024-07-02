@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,9 +23,11 @@ class ExchangeRatesViewModel @Inject constructor(
     val uiState: StateFlow<ExchangeRatesUiState>
         get() = _uiState.asStateFlow()
 
+
     init {
+
         viewModelScope.launch {
-            exchangeRatesInteractor.fetchCurrency()
+            exchangeRatesInteractor.fetchCurrency(getCurrentDate())
                 .collect { exchangeRatesFromModel ->
                     _uiState.update { oldState ->
                         oldState.copy(
@@ -37,9 +40,13 @@ class ExchangeRatesViewModel @Inject constructor(
         }
     }
 
-    fun fetchCurrency() {
+    fun fetchCurrency(localDate: LocalDate) {
         viewModelScope.launch {
-            exchangeRatesInteractor.fetchCurrency()
+            exchangeRatesInteractor.fetchCurrency(localDate)
         }
+    }
+
+   fun getCurrentDate(): LocalDate {
+        return  LocalDate.now()
     }
 }

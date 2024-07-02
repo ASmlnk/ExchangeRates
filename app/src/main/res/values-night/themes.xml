@@ -43,6 +43,7 @@
 
     <style name="BackgroundRecycler">
         <item name="android:background">@drawable/background_recycler_night</item>
+        <item name="android:backgroundTint">@color/background_recycler</item>
     </style>
 
     <style name="BackgroundCurrency">

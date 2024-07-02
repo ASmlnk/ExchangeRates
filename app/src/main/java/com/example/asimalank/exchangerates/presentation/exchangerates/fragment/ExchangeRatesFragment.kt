@@ -1,5 +1,6 @@
 package com.example.asimalank.exchangerates.presentation.exchangerates.fragment
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.example.asimalank.exchangerates.presentation.exchangerates.adapter.Cu
 import com.example.asimalank.exchangerates.presentation.exchangerates.viewModel.ExchangeRatesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,11 +41,27 @@ class ExchangeRatesFragment : Fragment() {
         _binding = FragmentExchangeRatesBinding.inflate(inflater, container, false)
         binding.apply {
             listExchangeRates.adapter = adapter
+            calendarButton?.setOnClickListener {
+                val date = viewModel.getCurrentDate()
+
+                val datePickerDialog = DatePickerDialog(
+                    requireContext(),
+                    { _, selectedYear, selectedMonth, selectedDay ->
+                        val selectedDate =
+                            LocalDate.of(selectedYear, selectedMonth + 1, selectedDay)
+                        viewModel.fetchCurrency(selectedDate)
+                    },
+                    date.year,
+                    date.monthValue - 1,
+                    date.dayOfMonth
+                )
+                datePickerDialog.show()
+            }
             swipeRefreshLayout.setOnRefreshListener {
-                viewModel.fetchCurrency()
+                viewModel.fetchCurrency(viewModel.getCurrentDate())
                 swipeRefreshLayout.postDelayed({
                     swipeRefreshLayout.isRefreshing = false
-                }, 500)
+                }, 100)
             }
         }
         return binding.root

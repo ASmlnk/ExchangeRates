@@ -4,6 +4,7 @@ import com.example.asimalank.exchangerates.data.repository.ExchangeRatesReposito
 import com.example.asimalank.exchangerates.domain.usecases.CurrencyDateFormatUseCase
 import com.example.asimalank.exchangerates.domain.interactor.ExchangeRatesInteractor
 import com.example.asimalank.exchangerates.domain.interactor.ExchangeRatesInteractorImpl
+import com.example.asimalank.exchangerates.domain.usecases.DateRequestApiUseCase
 import com.example.asimalank.exchangerates.domain.usecases.NetworkAvailableUseCase
 import dagger.Module
 import dagger.Provides
@@ -20,8 +21,14 @@ class UseCaseModule {
     fun provideExchangeRatesInteractor(
         networkHelper: NetworkAvailableUseCase,
         exchangeRatesRepository: ExchangeRatesRepository,
-        currencyDateFormatUseCase: CurrencyDateFormatUseCase
+        currencyDateFormatUseCase: CurrencyDateFormatUseCase,
+        dateRequestApiUseCase: DateRequestApiUseCase
     ): ExchangeRatesInteractor {
-        return ExchangeRatesInteractorImpl(networkHelper, exchangeRatesRepository, currencyDateFormatUseCase)
+        return ExchangeRatesInteractorImpl(
+            networkHelper,
+            exchangeRatesRepository,
+            currencyDateFormatUseCase,
+            dateRequestApiUseCase
+        )
     }
 }
