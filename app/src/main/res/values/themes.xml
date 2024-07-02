@@ -37,29 +37,30 @@
     </style>
 
     <style name="TextItemCurName" parent="BaseTextViewStyle">
-        <item name="android:textColor">@color/background_item_cur_name</item>
+        <item name="android:textColor">@color/background_fragment</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>
     </style>
 
     <style name="BackgroundFragment">
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@color/background_fragment_day</item>
     </style>
 
     <style name="BackgroundRecycler">
         <item name="android:background">@drawable/background_recycler_night</item>
-        <item name="android:backgroundTint">#E1DED6</item>
+        <item name="android:backgroundTint">@color/background_recycler_day</item>
     </style>
 
     <style name="BackgroundCurrency">
-        <item name="android:background">@drawable/currency_background_night</item>
+        <item name="android:background">@drawable/currency_background</item>
     </style>
 
     <style name="BackgroundLayoutCurScale">
-        <item name="android:background">@drawable/currency_scale_background_night</item>
+        <item name="android:background">@drawable/currency_scale_background</item>
     </style>
 
     <style name="ImageCalendarColor">
         <item name="android:src">@drawable/baseline_calendar_month</item>
     </style>
+
 </resources>

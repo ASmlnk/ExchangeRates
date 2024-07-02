@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="background_item_night">#1C1C1C</color>
-    <color name="background_night">#202020</color>
+    <color name="background_night">#191818</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#CF1414</color>
     <color name="text_item_night">#F6E9BF</color>
@@ -11,5 +11,11 @@
     <color name="background_fragment">#2B2B29</color>
     <color name="background_item_cur_name">#FFCDA7</color>
     <color name="background_recycler">#222222</color>
+    <color name="background_fragment_day">#FDFDFA</color>
+    <color name="background_recycler_day">#E1DED6</color>
+    <color name="currency_backgroun_stoke">#CAC6BA</color>
+    <color name="currency_backgroun">#DCD8CB</color>
+    <color name="currency_scale_stoke">#C6C1AF</color>
+    <color name="currency_scale">#F8F1D9</color>
 
 </resources>
