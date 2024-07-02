@@ -7,10 +7,7 @@ import retrofit2.http.Query
 
 interface NbrbApi {
     @GET(
-        "exrates/rates" /*+
-                "&format=json" +
-                "&nojsoncallback=0" +
-                "&extras=url_s"*/
+        "exrates/rates"
     )
     suspend fun fetchCurrency(
         @Query("ondate") onDate: String,

@@ -14,4 +14,10 @@ interface CurrencyLocaleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(data: List<CurrencyEntity>)
+
+    @Query("DELETE FROM currency_cache")
+    suspend fun clearAll()
+
+    @Query("SELECT COUNT(*) FROM currency_cache")
+    suspend fun countCurrencyEntities(): Int
 }

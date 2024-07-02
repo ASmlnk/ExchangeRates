@@ -9,4 +9,6 @@ interface ExchangeRatesRepository {
     suspend fun fetchCurrency(onDate: String, periodicity: String): Response<List<CurrencyDto>>
     suspend fun insertAllCache(data: List<CurrencyEntity>)
     fun currencyEntityStream(): Flow<List<CurrencyEntity>>
+    suspend fun clearAllCache()
+    suspend fun countCurrencyEntities(): Int
 }

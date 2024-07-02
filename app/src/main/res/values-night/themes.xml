@@ -10,7 +10,7 @@
     <style name="BaseTextViewStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/text_item</item> <!-- Оранжевый цвет текста -->
+        <item name="android:textColor">@color/text_item_night</item> <!-- Оранжевый цвет текста -->
         <item name="android:textSize">14sp</item> <!-- Размер текста -->
         <item name="android:fontFamily">@font/ru_hero</item> <!-- Шрифт -->
         <item name="android:padding">0dp</item> <!-- Внутренние отступы -->
@@ -54,5 +54,8 @@
         <item name="android:background">@drawable/currency_scale_background_night</item>
     </style>
 
+    <style name="ImageCalendarColor">
+        <item name="android:src">@drawable/baseline_calendar_month_night</item>
+    </style>
 
 </resources>

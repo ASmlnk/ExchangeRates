@@ -5,10 +5,11 @@
     <color name="background_night">#202020</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#CF1414</color>
-    <color name="text_item">#F6E9BF</color>
+    <color name="text_item_night">#F6E9BF</color>
+    <color name="text_item">#4C483C</color>
     <color name="background_scale">#F8F0D6</color>
     <color name="background_fragment">#2B2B29</color>
     <color name="background_item_cur_name">#FFCDA7</color>
-    <color name="background_recycler">#1C1C1C</color>
+    <color name="background_recycler">#222222</color>
 
 </resources>

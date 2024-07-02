@@ -74,7 +74,14 @@ class ExchangeRatesInteractorImpl @Inject constructor(
             val response = exchangeRatesRepository.fetchCurrency(onDate, periodicity)
             if (response.isSuccessful) {
                 response.body()?.let { currencyNetwork ->
-                    exchangeRatesRepository.insertAllCache(currencyNetwork.map { it.toCurrencyEntity() })
+                    val currencyEntitys = currencyNetwork.map { it.toCurrencyEntity() }
+                    val countCurrency = exchangeRatesRepository.countCurrencyEntities()
+                    if (countCurrency == 0 || countCurrency == currencyEntitys.size) {
+                        exchangeRatesRepository.insertAllCache(currencyEntitys)
+                    } else {
+                        exchangeRatesRepository.clearAllCache()
+                        exchangeRatesRepository.insertAllCache(currencyEntitys)
+                    }
                 }
             }
         } catch (e: Exception) {

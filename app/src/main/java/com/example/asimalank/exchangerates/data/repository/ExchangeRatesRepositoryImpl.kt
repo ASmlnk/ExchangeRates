@@ -15,10 +15,14 @@ class ExchangeRatesRepositoryImpl @Inject constructor(
 
     override fun currencyEntityStream(): Flow<List<CurrencyEntity>> = currencyLocaleDao.getAll()
 
+    override suspend fun clearAllCache() = currencyLocaleDao.clearAll()
+
     override suspend fun fetchCurrency(onDate: String, periodicity: String) =
         nbrbApi.fetchCurrency(onDate, periodicity)
 
     override suspend fun insertAllCache(data: List<CurrencyEntity>) =
         currencyLocaleDao.insertAll(data)
+
+    override suspend fun countCurrencyEntities() = currencyLocaleDao.countCurrencyEntities()
 }
 
