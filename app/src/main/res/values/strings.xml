@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">ExchangeRates</string>
-    <string name="name_cur">Курсы валют НБРБ</string>
-    <string name="exception_cur">Нет данных!\nВозможно ошибка сети!</string>
+    <string name="app_name">Exchange Rates</string>
+    <string name="name_cur">Exchange rate NBRB</string>
+    <string name="exception_cur">There is no data!\nThere may be a network error!</string>
     <string name="cur_officialRate">%1$s BYN</string>
-    <string name="error_toast">Ошибка! \nСеть не доступна!</string>
+    <string name="error_toast">Mistake!\nThe network is unavailable!</string>
+    <string name="error_date">Wrong date!\nChoose a different date.</string>
 </resources>

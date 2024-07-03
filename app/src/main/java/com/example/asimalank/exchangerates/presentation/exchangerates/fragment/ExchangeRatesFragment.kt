@@ -43,17 +43,25 @@ class ExchangeRatesFragment : Fragment() {
             listExchangeRates.adapter = adapter
             calendarButton?.setOnClickListener {
                 val date = viewModel.getCurrentDate()
+                val year = date.year
+                val month = date.monthValue - 1
+                val day = date.dayOfMonth
 
                 val datePickerDialog = DatePickerDialog(
                     requireContext(),
                     { _, selectedYear, selectedMonth, selectedDay ->
                         val selectedDate =
                             LocalDate.of(selectedYear, selectedMonth + 1, selectedDay)
-                        viewModel.fetchCurrency(selectedDate)
+                        if (selectedDate <= date) {
+                            viewModel.fetchCurrency(selectedDate)
+                        } else {
+                            toast(R.string.error_date)
+                        }
+
                     },
-                    date.year,
-                    date.monthValue - 1,
-                    date.dayOfMonth
+                    year,
+                    month ,
+                    day
                 )
                 datePickerDialog.show()
             }

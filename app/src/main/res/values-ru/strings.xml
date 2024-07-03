@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Курсы валют</string>
+    <string name="name_cur">Курсы валют НБРБ</string>
+    <string name="exception_cur">Нет данных!\nВозможно ошибка сети!</string>
+    <string name="cur_officialRate">%1$s BYN</string>
+    <string name="error_toast">Ошибка!\nСеть не доступна!</string>
+    <string name="error_date">Неверная дата!\nВыберите другую дату.</string>
+</resources>
